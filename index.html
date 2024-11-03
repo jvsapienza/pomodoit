@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoit - Your Pomodoro Timer</title>
+    <style>
+        /* Reset and Basic Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(to right, #f3e5f5, #f8bbd0);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+    
+        /* Container Styling */
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            transition: box-shadow 0.3s ease;
+        }
+    
+        /* Hover effect for container */
+        .container:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+    
+        /* Title Styling */
+        h1 {
+            font-size: 2.2em;
+            color: #b56576;
+            margin-bottom: 30px;
+        }
+    
+        /* Timer Display */
+        .timer {
+            font-size: 4em;
+            font-weight: bold;
+            color: #b56576;
+            margin: 20px 0;
+            letter-spacing: 2px;
+        }
+    
+        /* Button Styling */
+        button {
+            background: linear-gradient(to right, #b56576, #d7a6ad);
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+    
+        button:hover {
+            background-color: #9d4a5b;
+            transform: translateY(-2px);
+        }
+    
+        /* Button Pressed Effect */
+        button:active {
+            transform: translateY(0);
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+    
+        /* Additional Styling for Visual Polish */
+        .container, button {
+            transition: all 0.2s ease;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Pomodoit Timer</h1>
+        <div class="timer" id="timerDisplay">25:00</div>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="resetTimer()">Reset</button>
+    </div>
+
+    <script>
+        let countdown;
+        let timeLeft = 1500; // 25 minutes in seconds
+
+        function startTimer() {
+            clearInterval(countdown);
+            countdown = setInterval(() => {
+                timeLeft--;
+                displayTime(timeLeft);
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    alert('Time’s up!');
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(countdown);
+            timeLeft = 1500; // Reset to 25 minutes
+            displayTime(timeLeft);
+        }
+
+        function displayTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            document.getElementById('timerDisplay').textContent = `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        }
+    </script>
+</body>
+</html>
